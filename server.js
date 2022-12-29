@@ -6,9 +6,17 @@ const server = http.createServer(app);
 const socket = require('socket.io');
 const io = socket(server);
 const path = require('path');
+const cors = require('cors');
 
 const rooms = {}; //represents all the rooms
 const socketRoom = []; //collection of rooms corresponding to each socket
+
+app.use(
+    cors({
+      origin: process.env.CORS_ORIGIN,
+      credentials: true,
+    })
+);
 
 io.on('connection', socket=>{
     console.log('connected');
