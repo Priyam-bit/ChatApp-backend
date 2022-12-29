@@ -4,19 +4,16 @@ const http = require('http');
 const app = express();
 const server = http.createServer(app);
 const socket = require('socket.io');
-const io = socket(server);
+const io = socket(server, {
+    cors : '*',
+});
 const path = require('path');
 const cors = require('cors');
 
 const rooms = {}; //represents all the rooms
 const socketRoom = []; //collection of rooms corresponding to each socket
 
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    next();
-  });
-  
-// app.use(cors());
+//app.use(cors());
 
 io.on('connection', socket=>{
     console.log('connected');
