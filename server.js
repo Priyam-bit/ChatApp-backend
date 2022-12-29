@@ -4,14 +4,15 @@ const http = require('http');
 const app = express();
 const cors = require('cors');
 const server = http.createServer(app);
-const socket = require('socket.io')(httpServer, {
-    cors: {
-      origin: "*",
-      methods: ["GET", "POST"]
-    }
-  });
-const io = socket(server);
 const path = require('path');
+const SocketIO = require("socket.io");
+
+const httpServer = http.createServer();
+const io = new SocketIO.Server(httpServer, {
+  cors: {
+    origin: "*"
+  }
+});
 
 const rooms = {}; //represents all the rooms
 const socketRoom = []; //collection of rooms corresponding to each socket
