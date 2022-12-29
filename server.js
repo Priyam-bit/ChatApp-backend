@@ -13,7 +13,7 @@ const socketRoom = []; //collection of rooms corresponding to each socket
 
 app.use(
     cors({
-      origin: process.env.CORS_ORIGIN,
+      origin: '*',
       credentials: true,
     })
 );
