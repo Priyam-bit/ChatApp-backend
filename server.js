@@ -11,13 +11,7 @@ const cors = require('cors');
 const rooms = {}; //represents all the rooms
 const socketRoom = []; //collection of rooms corresponding to each socket
 
-app.set("trust proxy", 1);
-app.use(
-    cors({
-      origin: '*',
-      credentials: true,
-    })
-);
+app.use(cors());
 
 io.on('connection', socket=>{
     console.log('connected');
