@@ -11,7 +11,12 @@ const cors = require('cors');
 const rooms = {}; //represents all the rooms
 const socketRoom = []; //collection of rooms corresponding to each socket
 
-app.use(cors());
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
+  });
+  
+// app.use(cors());
 
 io.on('connection', socket=>{
     console.log('connected');
