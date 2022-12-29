@@ -2,11 +2,16 @@ require('dotenv').config();
 const express = require('express');
 const http = require('http');
 const app = express();
+const cors = require('cors');
 const server = http.createServer(app);
-const socket = require('socket.io');
+const socket = require('socket.io')(httpServer, {
+    cors: {
+      origin: "*",
+      methods: ["GET", "POST"]
+    }
+  });
 const io = socket(server);
 const path = require('path');
-const cors = require('cors');
 
 const rooms = {}; //represents all the rooms
 const socketRoom = []; //collection of rooms corresponding to each socket
@@ -70,7 +75,7 @@ io.on('connection', socket=>{
 if(process.env.NODE_ENV === 'production') {
     // set static folder
     app.use(express.static('client/build'));
-    app.use(cors());
+    // app.use(cors());
     app.get('*', (req, res) => {
         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
     });
