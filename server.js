@@ -10,7 +10,7 @@ const SocketIO = require("socket.io");
 const httpServer = http.createServer();
 const io = new SocketIO.Server(httpServer, {
   cors: {
-    origin: "*"
+    origin: "https://agile-chatapp.onrender.com"
   }
 });
 
