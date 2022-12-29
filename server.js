@@ -5,14 +5,18 @@ const app = express();
 const cors = require('cors');
 const server = http.createServer(app);
 const path = require('path');
-const SocketIO = require("socket.io");
-
-const httpServer = http.createServer();
-const io = new SocketIO.Server(httpServer, {
-  cors: {
-    origin: "https://agile-chatapp.onrender.com"
-  }
-});
+const io = require('socket.io')(http, {
+    handlePreflightRequest: (req, res) => {
+      const headers = {
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        "Access-Control-Allow-Origin": req.headers.origin, //or the specific origin you want to give access to,
+        "Access-Control-Allow-Credentials": true
+      };
+      res.writeHead(200, headers);
+      res.end();
+    }
+  });
+  
 
 const rooms = {}; //represents all the rooms
 const socketRoom = []; //collection of rooms corresponding to each socket
